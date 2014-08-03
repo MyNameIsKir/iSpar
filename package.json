@@ -1,19 +1,17 @@
 {
-    "name": "iSpar"
-  , "version": "0.0.1"
-  , "dependencies": {
-        "express": "3.0.0beta4"
-      , "connect-assets": "2.1.x"
-      , "express-partials": ">= 0.0.5"
-      , "ejs": "*"
-      , "stylus": "*"
-      , "coffee-script": "*"
-    }
-  , "scripts": {
-      "start": "server.js"
-    }
-  , "engines": {
-        "node": "0.10.28"
-      , "npm": "1.1.x"
-    }
+  "name": "iSpar",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.2.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "jade": "~1.3.0"
+  }
 }
