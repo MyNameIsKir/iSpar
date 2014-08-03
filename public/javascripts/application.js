@@ -3,7 +3,7 @@ window.onload=function(){
   console.log("loaded!")
   if (window.DeviceMotionEvent) {
       $('#shake').html("Supported!")
-    window.addEventListener('devicemotion', function(){
+    window.addEventListener('shake', function(){
       $('#shake').append("<p>shake!</p>")
     });
   } else {
