@@ -16,7 +16,7 @@
         this.hasDeviceMotion = 'ondevicemotion' in window;
 
         //default velocity threshold for shake to register
-        this.threshold = 15;
+        this.threshold = 10;
 
         //use date to prevent multiple shakes firing
         this.lastTime = new Date();
@@ -35,7 +35,7 @@
         } else if (typeof document.createEvent === "function") {
             this.event = document.createEvent('Event');
             this.event.initEvent('shake', true, true);
-        } else { 
+        } else {
           return false;
         }
     }
