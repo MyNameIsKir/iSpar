@@ -4,6 +4,7 @@
 * As a player I can display my in game status (with a screen color)
 * As a player I can lose a game by having my device knocked
 * As a player I can win a game by being the last player "standing"
+* As a player I can see my player name (eg "Player 1")
 * As a host I can start a game
 * As a host I can see a list of players
 * As a host I can see which players are in, and which players are out of the game
