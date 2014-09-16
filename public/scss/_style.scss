@@ -1,0 +1,210 @@
+@media only screen and (max-width : 760px) {
+  body {
+    background: #1B212F url("../img/louder_logo.png");
+    background-size: 100px;
+    width: 100%;
+    background-size: 299px;
+    background-position: center 10%;
+    .wrapper {
+      margin-top: 15rem;
+      #player {
+        width: 95%;
+        margin: 0 auto;
+        display: block;
+        .search-field {
+          font-size: 0.9rem;
+          .tt-suggestion {
+            font-size: 0.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 761px) {
+  body {
+    background: #1B212F url("../img/louder_logo.png");
+    background-size: 100px;
+    width: 100%;
+    background-size: 500px;
+    background-position: 30% -5%;
+    max-width: 1026px;
+    .wrapper {
+      #player {
+        min-width: 400px;
+        width: 55%;
+        max-width: 40rem;
+        position: absolute;
+        top: 16rem;
+        left: 40%;
+        .search-field {
+          font-size: 1.3rem;
+            .tt-suggestion {
+              font-size: 0.2rem;
+            }
+        }
+      }
+    }
+  }
+}
+
+  * {
+    box-sizing: border-box;
+  }
+  /*Color Scheme colors:
+  writing: D8D8D8;
+  background: 1B212F;
+  innerdiv backgrounds: 222939;
+  innerdiv accents: 333E54;
+  standouts: D05158;
+  */
+body{
+  background-repeat: no-repeat;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 0 auto;
+  overflow: hidden;
+  &.waiting {
+    cursor: wait;
+  }
+ .wrapper {
+    #player {
+      display: block;
+      margin: 0 auto;
+      background-color: #333E54;
+      border-radius: 15px;
+      #sc-widget {
+        width: 4rem;
+        height: 5.5rem;
+      }
+      #button {
+        display: none;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+        left: 0;
+        #play-button {
+          width: 78px;
+          height: 88px;
+        }
+      }
+      #widget {
+        width: 100%;
+        text-align: center;
+      }
+      .waveform {
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      .title{
+        bottom: 13%;
+        position: relative;
+        color: white;
+        text-align: center
+      }
+      #soundCloudURL {
+        padding: 2rem;
+        .twitter-typeahead {
+          width: 100%;
+          .tt-hint {
+            color: #D8D8D8;
+          }
+        }
+        .tt-dropdown-menu {
+          border: 1px solid white;
+          max-height: 15rem;
+          overflow-y:auto;
+            .tt-dataset-tracks{
+              color: #333E54;
+            }
+            .tt-suggestion {
+              border: 1px solid white;
+              line-height: 1.3rem;
+              padding: 1rem;
+              font-color: #D05158;
+              background-color:#D8D8D8;
+              &:hover {
+                background-color:#BFBFBF;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .search-field {
+          margin: auto;
+          padding: 1rem;
+          width: 100%;
+          &:focus {
+            outline:0;
+          }
+        }
+    }
+  }
+  .screens {
+    width: 100%;
+    margin: 0 auto;
+    #connect-button {
+      display: block;
+      display: none;
+      width: 40%;
+      padding: 3rem;
+      text-align: center;
+      background-color: #333E54;
+      color: #D8D8D8;
+      margin: 0 auto;
+      border-radius: 10px;
+      z-index: 1;
+      margin-top: 3rem;
+    }
+    #wait-screen {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 3em;
+      color: #fff;
+      display: none;
+      position: absolute;
+      height: 0px;
+      left: 0px;
+      width: 100%;
+      top: 100px;
+    }
+    #guest-playing {
+      display: none;
+      width: 50%;
+      padding: 3rem;
+      text-align: center;
+      background-color: #333E54;
+      color: #D8D8D8;
+      margin: 0 auto;
+      border-radius: 10px;
+      z-index: 1;
+      margin-top: 3rem;
+    }
+  }
+
+  #d3 {
+    svg {
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      rect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        fill: none;
+        pointer-events: all;
+        z-index: 100
+      }
+      circle {
+        fill: none;
+        stroke-width: 2.5px;
+        z-index: 100
+      }
+    }
+  }
+}
+
