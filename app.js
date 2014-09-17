@@ -10,6 +10,9 @@ var users = require('./routes/users');
 
 var app = express();
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -57,3 +60,18 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+http.listen(3000, function(){
+    console.log("Listening on port 3000...")
+});
+
+//Socket.io
+
+io.on('connection', function(socket){
+    var ipaddress = socket.handshake.address
+    console.log("A user has connected. Their IP address is: " + ipaddress);
+});
+
+io.on('disconnect', function(){
+    console.log("A user has disconnected.");
+});

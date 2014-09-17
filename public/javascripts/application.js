@@ -1,3 +1,4 @@
+// Actions that occur on shake
 function shakeEventDidOccur () {
   $("body").css("background-color", "red");
   setTimeout(function(){
@@ -6,6 +7,11 @@ function shakeEventDidOccur () {
 };
 
 window.onload = function(){
+
+  //Sockets
+  var socket = io()
+
+  //Shake
   var isMobile = jQuery.browser.mobile
   if (window.DeviceMotionEvent && isMobile) {
     // User device is a mobile device with the device motion event enabled

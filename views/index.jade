@@ -1,14 +1,11 @@
 extends layout
 
 block content
-  //- h1= title
-  //- p Welcome to #{title}
-  .site-wrapper
+  .site-wrapper#index
     .site-wrapper-inner
       .cover-container
         .masthead.clearfix
           .inner
-            //- h3.masthead-brand iSpar
             ul.nav.masthead-nav
               li.active
                 a(href="/") Home
@@ -18,7 +15,6 @@ block content
                 a(href="#") Github
           .inner.cover
             h1.cover-heading.big-cover-heading iSpar
-            //- p.lead
             p.lead
               button.btn.btn-lg.btn-default(data-toggle='modal', data-target='#howToPlay') How to Play
             p.lead.mobile-player
@@ -30,7 +26,7 @@ block content
 
 
   //
-     Modal
+     How to Play Modal
   #howToPlay.modal.fade(tabindex='-1', role='dialog', aria-labelledby='howToPlayLabel', aria-hidden='true')
     .modal-dialog
       .modal-content

@@ -19,9 +19,5 @@ head
     link(href='/stylesheets/style.css', rel='stylesheet')
     body
       block content
-      script(src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
-      script(src="/javascripts/bootstrap.min.js")
-      script(src="/javascripts/detectmobilebrowser.js")
-      script(src="/javascripts/shake.js")
-      script(src="/javascripts/application.js")
-      script(src="/javascripts/docs.min.js")
+      -each script in scripts
+        script(type='text/javascript', src= script)
