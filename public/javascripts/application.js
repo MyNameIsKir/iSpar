@@ -1,10 +1,15 @@
-alert("I loaded!")
-window.onload=function(){
-  console.log("loaded!")
+function shakeEventDidOccur () {
+  $("body").css("background-color", "red");
+  setTimeout(function(){
+    $("body").css("background-color", "white");
+  }, 1000);
+};
+
+window.onload = function(){
   if (window.DeviceMotionEvent) {
       $('#shake').html("Supported!")
     window.addEventListener('shake', function(){
-      $('#shake').append("<p>shake!</p>")
+      shakeEventDidOccur();
     });
   } else {
     $('#shake').html("Not supported.")
