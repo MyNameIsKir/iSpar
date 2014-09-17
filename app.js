@@ -61,8 +61,8 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-http.listen(process.env.PORT || 3000, function(){
-    console.log("Listening on port 3000...")
+http.listen(process.env.PORT || 8080, function(){
+    console.log("Listening...")
 });
 
 //Socket.io
