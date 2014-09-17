@@ -10,8 +10,8 @@ var users = require('./routes/users');
 
 var app = express();
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var http = require('http').createServer(app);
+var io = require('socket.io').listen(http);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
