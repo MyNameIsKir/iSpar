@@ -1,5 +1,6 @@
 function shakeEventDidOccur () {
   $("body").css("background-color", "red");
+  ion.sound.play("computer_error");
   setTimeout(function(){
     $("body").css("background-color", "white");
   }, 1000);
