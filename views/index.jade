@@ -1,6 +1,45 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  div#shake
+  //- h1= title
+  //- p Welcome to #{title}
+  .site-wrapper
+    .site-wrapper-inner
+      .cover-container
+        .masthead.clearfix
+          .inner
+            //- h3.masthead-brand iSpar
+            ul.nav.masthead-nav
+              li.active
+                a(href="/") Home
+              li
+                a(href="#") About
+              li
+                a(href="#") Github
+          .inner.cover
+            h1.cover-heading.big-cover-heading iSpar
+            //- p.lead
+            p.lead
+              button.btn.btn-lg.btn-default(data-toggle='modal', data-target='#howToPlay') How to Play
+            p.lead.mobile-player
+              button.btn.btn-lg.btn-default(href="#") Connect
+            p.lead.computer-host
+              button.btn.btn-lg.btn-default(href="#") Connect as Host
+        .mastfoot
+          .inner
+
+
+  //
+     Modal
+  #howToPlay.modal.fade(tabindex='-1', role='dialog', aria-labelledby='howToPlayLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') ×
+            span.sr-only Close
+          h4#howToPlayLabel.modal-title How To Play
+        .modal-body
+          | ...
+        .modal-footer
+          button.btn.btn-primary(type='button', data-dismiss='modal') Close

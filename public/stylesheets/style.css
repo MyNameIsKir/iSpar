@@ -1,8 +1,22 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.big-cover-heading {
+  padding-top: 50px;
+  padding-bottom: 30px;
+  font-size: 80px;
+}
+
+.mobile-player, .computer-host {
+  display: none;
+}
+
+#howToPlayLabel, .modal-body {
+  color: #000;
+  text-shadow: none;
 }
