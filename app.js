@@ -99,6 +99,7 @@ io.on('connection', function(socket){
     socket.on('hostConnectRequest', function(data){
         console.log("A host request has been made.");
         var ipaddress = socket.handshake.address;
+        console.log(ipaddress);
         if(currentRooms[ipaddress] && currentRooms[ipaddress].hostId){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
@@ -130,6 +131,8 @@ io.on('connection', function(socket){
     socket.on('playerConnectRequest', function(data){
         console.log("A player request has been made.");
         var ipaddress = socket.handshake.address;
+        console.log(ipaddress);
+        console.log(currentRooms);
         var room = currentRooms[ipaddress];
         if(room){
             room.playerCount++;

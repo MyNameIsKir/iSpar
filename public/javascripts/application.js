@@ -39,6 +39,7 @@ window.onload = function(){
     $("#index").hide();
     $("#playerid").append(" " + data.playerid);
     $("#playerInterface").show();
+    $("body").css("background-color", "yellow");
   });
 
   //mutual sockets
