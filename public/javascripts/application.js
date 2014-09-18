@@ -26,9 +26,30 @@ window.onload = function(){
   socket.on('hostAdded', function(){
     $("#index").hide();
     $("#playerlist").show();
-  })
+  });
 
-  //button sockets
+  socket.on('insufficientPlayers', function(){
+    $("#notenoughplayers").show();
+    setTimeout(function(){
+      $("#notenoughplayers").hide();
+    }, 2000);
+  });
+
+  //player sockets
+  socket.on('roomDoesNotExist', function(){
+    $("#roomdoesnotexist").show();
+    setTimeout(function(){
+      $("#roomdoesnotexist").hide();
+    }, 2000);
+  });
+
+  //mutual sockets
+  socket.on('gamestart', function(){
+    $("#gamestart").hide();
+    //player code here
+  });
+
+  //host button sockets
   $("#host-connect").click(function(e){
     e.preventDefault();
     console.log("host connect click")
@@ -41,6 +62,19 @@ window.onload = function(){
     console.log("host start click")
     socket.emit('gameStartRequest');
   })
+
+  $("#gamereset").click(function(e){
+    e.preventDefault();
+    console.log("host reset click")
+    socket.emit('gameResetRequest');
+  });
+
+  //player button sockets
+  $("#player-connect").click(function(e){
+    e.preventDefault();
+    console.log("player connect click")
+    socket.emit('playerConnectRequest', {clientId: clientSessionId});
+  });
 
   //Shake
   var shake = initializeShake(window, document);

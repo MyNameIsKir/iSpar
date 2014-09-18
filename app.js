@@ -107,5 +107,36 @@ io.on('connection', function(socket){
             socket.emit('hostAdded');
             console.log(currentRooms);
         }
-    })
+    });
+
+    socket.on('gameStartRequest', function(){
+        var ipaddress = socket.handshake.address;
+        var players = currentRooms[ipaddress].players;
+        if(players.length > 1){
+            socket.emit('gameStart');
+            for(player in players){
+                io.sockets.socket(player.socketid).emit('gameStart');
+            }
+        } else {
+            socket.emit('insufficientPlayers');
+        }
+    });
+
+    socket.on('gameResetRequest', function(){
+        //todo
+    });
+
+
+    socket.on('playerConnectRequest', function(data){
+        console.log("A player request has been made.");
+        var ipaddress = socket.handshake.address;
+        var room = currentRooms[ipaddress];
+        if(room){
+            room.playerCount++;
+            room.players.push(new Player(room.playerCount, data.clientId));
+            socket.emit('playerAdded');
+        } else {
+            socket.emit('roomDoesNotExist');
+        }
+    });
 });

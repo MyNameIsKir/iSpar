@@ -9,6 +9,10 @@ block content
     .alert.alert-warning.page-alert#notenoughplayers
       strong Hey!
         | There's not enough players to start a game yet!
+  .page-alerts
+    .alert.alert-warning.page-alert#roomdoesnotexist
+      strong Hey!
+        | You need a host to start a room before you can play. Are you connected to wifi?
   .site-wrapper#index
     .site-wrapper-inner
       .cover-container
@@ -47,6 +51,8 @@ block content
         p.lead
           button.btn.btn-lg.btn-default#gamestart Start
           button.btn.btn-lg.btn-default#gamereset Reset
+
+  .site-wrapper#playerinterface
 
   //
      How to Play Modal
