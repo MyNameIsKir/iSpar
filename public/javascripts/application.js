@@ -1,11 +1,3 @@
-// Actions that occur on shake
-function shakeEventDidOccur () {
-  $("body").css("background-color", "red");
-  setTimeout(function(){
-    $("body").css("background-color", "black");
-  }, 1000);
-};
-
 window.onload = function(){
 
   //Sockets
@@ -20,7 +12,7 @@ window.onload = function(){
     $("#preexistinghost").show();
     setTimeout(function(){
       $("#preexistinghost").hide();
-    }, 2000);
+    }, 5000);
   });
 
   socket.on('hostAdded', function(){
@@ -32,7 +24,7 @@ window.onload = function(){
     $("#notenoughplayers").show();
     setTimeout(function(){
       $("#notenoughplayers").hide();
-    }, 2000);
+    }, 5000);
   });
 
   //player sockets
@@ -40,7 +32,13 @@ window.onload = function(){
     $("#roomdoesnotexist").show();
     setTimeout(function(){
       $("#roomdoesnotexist").hide();
-    }, 2000);
+    }, 5000);
+  });
+
+  socket.on('playerAdded', function(data){
+    $("#index").hide();
+    $("#playerid").append(" " + data.playerid);
+    $("#playerInterface").show();
   });
 
   //mutual sockets
@@ -95,4 +93,13 @@ window.onload = function(){
     $(".mobile-player").show();
     alert("Your device is not compatible. Sorry!")
   }
+
+  // Actions that occur on shake when at title screen
+  function shakeEventDidOccur () {
+    console.log("Device shake registered")
+    $("body").css("background-color", "red");
+    setTimeout(function(){
+      $("body").css("background-color", "black");
+    }, 1000);
+  };
 }

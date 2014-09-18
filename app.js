@@ -82,8 +82,8 @@ http.listen(process.env.PORT || 3000, function(){
     console.log("Listening...")
 });
 
-//Socket.io
 
+//Socket.io
 io.on('connection', function(socket){
 
     socket.on('connection', function(){
@@ -126,7 +126,7 @@ io.on('connection', function(socket){
         //todo
     });
 
-
+    //Player
     socket.on('playerConnectRequest', function(data){
         console.log("A player request has been made.");
         var ipaddress = socket.handshake.address;
@@ -134,7 +134,7 @@ io.on('connection', function(socket){
         if(room){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId));
-            socket.emit('playerAdded');
+            socket.emit('playerAdded', {playerid: room.playerCount + 1});
         } else {
             socket.emit('roomDoesNotExist');
         }
