@@ -1,3 +1,20 @@
+//User Management
+function Player(id, socketid) {
+    this.id = id;
+    this.socketid = socketid;
+    this.gameStatus = "standby";
+};
+
+function Room(hostSocketId) {
+    this.hostId = hostSocketId;
+    this.players = []; //populate with Player objects
+    this.playerCount = 0;
+}
+
+var currentRooms = {
+    //populate with Room objects
+};
+
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -61,17 +78,34 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-http.listen(process.env.PORT || 8080, function(){
+http.listen(process.env.PORT || 3000, function(){
     console.log("Listening...")
 });
 
 //Socket.io
 
 io.on('connection', function(socket){
-    var ipaddress = socket.handshake.address
-    console.log("A user has connected. Their IP address is: " + ipaddress);
-});
 
-io.on('disconnect', function(){
-    console.log("A user has disconnected.");
+    socket.on('connection', function(){
+        var ipaddress = socket.handshake.address
+        console.log("A user has connected. Their IP address is: " + ipaddress);
+    });
+
+    socket.on('disconnect', function(){
+        console.log("A user has disconnected.");
+    });
+
+    //Host
+    socket.on('hostConnectRequest', function(data){
+        console.log("A host request has been made.");
+        var ipaddress = socket.handshake.address;
+        if(currentRooms[ipaddress] && currentRooms[ipaddress].hostId){
+            socket.emit('hostAlreadyExists');
+            console.log(currentRooms);
+        } else {
+            currentRooms[ipaddress] = new Room(data.clientId);
+            socket.emit('hostAdded');
+            console.log(currentRooms);
+        }
+    })
 });

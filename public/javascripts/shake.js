@@ -8,7 +8,11 @@
  *
  */
 
-(function (window, document) {
+// original
+//(function (window, document) {
+
+// Kir's
+var initializeShake = function(window, document){
 
     function Shake() {
 
@@ -107,8 +111,16 @@
         }
     };
 
+    //Added by Kir
+    Shake.prototype.changeThreshold = function(newThreshold){
+        this.threshold = newThreshold;
+    }
+
     //create a new instance of shake.js.
     var myShakeEvent = new Shake();
     myShakeEvent && myShakeEvent.start();
 
-}(window, document));
+    return myShakeEvent;
+
+// }(window, document));
+}

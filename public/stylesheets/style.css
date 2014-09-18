@@ -6,17 +6,41 @@ a {
   color: #00B7FF;
 }
 
+table {
+  text-shadow: none;
+  text-align: left;
+  color: #000;
+}
+
 .big-cover-heading {
   padding-top: 50px;
   padding-bottom: 30px;
   font-size: 80px;
 }
 
-.mobile-player, .computer-host {
+.mobile-player, .computer-host, .alert-warning, #playerlist, #gamereset {
   display: none;
 }
 
-#howToPlayLabel, .modal-body {
+#howToPlayLabel, .modal-body, .alert-warning {
   color: #000;
   text-shadow: none;
+}
+
+.page-alerts .page-alert {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+#playerlist {
+  margin-top: 60px;
+}
+
+.well {
+  margin: 0 auto;
+  width: 70%;
+}
+
+#gamecontrols {
+  padding: 50px;
 }

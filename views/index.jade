@@ -1,6 +1,14 @@
 extends layout
 
 block content
+  .page-alerts
+    .alert.alert-warning.page-alert#preexistinghost
+      strong Hey!
+        | There's already a host in the room. Better wait your turn :)
+  .page-alerts
+    .alert.alert-warning.page-alert#notenoughplayers
+      strong Hey!
+        | There's not enough players to start a game yet!
   .site-wrapper#index
     .site-wrapper-inner
       .cover-container
@@ -18,12 +26,27 @@ block content
             p.lead
               button.btn.btn-lg.btn-default(data-toggle='modal', data-target='#howToPlay') How to Play
             p.lead.mobile-player
-              button.btn.btn-lg.btn-default(href="#") Connect
+              button.btn.btn-lg.btn-default#player-connect(href="#") Connect
             p.lead.computer-host
-              button.btn.btn-lg.btn-default(href="#") Connect as Host
+              button.btn.btn-lg.btn-default#host-connect(href="#") Connect as Host
         .mastfoot
           .inner
 
+  .site-wrapper-inner#playerlist
+    .cover-container
+      p#waitmessage Waiting for players to connect...
+      .well
+        table.table
+          thead
+            tr
+              th(style='width: 100px;')
+              th Player
+              th Status
+          tbody#players
+      .inner.cover#gamecontrols
+        p.lead
+          button.btn.btn-lg.btn-default#gamestart Start
+          button.btn.btn-lg.btn-default#gamereset Reset
 
   //
      How to Play Modal

@@ -9,9 +9,42 @@ function shakeEventDidOccur () {
 window.onload = function(){
 
   //Sockets
-  var socket = io()
+  var socket = io.connect(document.domain);
+
+  socket.on('connect', function(){
+    console.log("Socket connected!");
+  });
+
+  //Host sockets
+  socket.on('hostAlreadyExists', function(){
+    $("#preexistinghost").show();
+    setTimeout(function(){
+      $("#preexistinghost").hide();
+    }, 2000);
+  });
+
+  socket.on('hostAdded', function(){
+    $("#index").hide();
+    $("#playerlist").show();
+  })
+
+  //button sockets
+  $("#host-connect").click(function(e){
+    e.preventDefault();
+    console.log("host connect click")
+    var clientSessionId = socket.io.engine.id;
+    socket.emit('hostConnectRequest', {clientId: clientSessionId});
+  });
+
+  $("#gamestart").click(function(e){
+    e.preventDefault();
+    console.log("host start click")
+    socket.emit('gameStartRequest');
+  })
 
   //Shake
+  var shake = initializeShake(window, document);
+
   var isMobile = jQuery.browser.mobile
   if (window.DeviceMotionEvent && isMobile) {
     // User device is a mobile device with the device motion event enabled
