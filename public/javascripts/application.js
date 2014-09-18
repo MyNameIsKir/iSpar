@@ -73,6 +73,7 @@ window.onload = function(){
   $("#player-connect").click(function(e){
     e.preventDefault();
     console.log("player connect click")
+    var clientSessionId = socket.io.engine.id;
     socket.emit('playerConnectRequest', {clientId: clientSessionId});
   });
 
