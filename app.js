@@ -138,7 +138,7 @@ io.on('connection', function(socket){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
         } else {
-            currentRooms[ipaddress] = new Room(data.clientId);
+            currentRooms[ipaddress] = new Room(data.clientId, data.longitude, data.latitude);
             socket.emit('hostAdded');
             console.log(currentRooms);
         }

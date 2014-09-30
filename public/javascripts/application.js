@@ -79,7 +79,7 @@ window.onload = function(){
   //host button sockets
   $("#host-connect").click(function(e){
     e.preventDefault();
-    if(longitude && latitude){
+    if(longitude != undefined && latitude != undefined){
       console.log("host connect click")
       var clientSessionId = socket.io.engine.id;
       socket.emit('hostConnectRequest', {clientId: clientSessionId, longitude: longitude, latitude: latitude});
