@@ -151,7 +151,10 @@ io.on('connection', function(socket){
     });
 
     socket.on('gameStartRequest', function(data){
-        var players = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId}).players
+        console.log("host id = " + data.clientId);
+        var room = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId});
+        console.log(room);
+        var players = room.players
         if(players.length > 1){
             socket.emit('gameStart');
             for(player in players){
