@@ -170,7 +170,7 @@ io.on('connection', function(socket){
         }
     });
 
-    socket.on('gameResetRequest', function(){
+    socket.on('gameResetRequest', function(data){
         var players = _.find(currentRooms.rooms, function(room){return room.hostId === data.clientId}).players
         socket.emit('gameReset');
         players.forEach(function(player){
