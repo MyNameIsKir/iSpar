@@ -21,9 +21,11 @@ var currentRooms = {
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 100000){
+                console.log("found it!")
                 return room;
             }
         });
+        console.log("the distance is too great, or room was not found.")
         return false;
     }
 };
@@ -178,7 +180,6 @@ io.on('connection', function(socket){
         console.log("player longitude: " + longitude + " latitude: " + latitude);
         var room = currentRooms.findRoomByLocation(longitude, latitude);
         console.log(room);
-        while(room === undefined){console.log("waiting for room.")}
         if(room){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId, room));
