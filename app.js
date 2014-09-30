@@ -18,7 +18,8 @@ var currentRooms = {
     rooms: [],
     findRoomByLocation: function(socket, longitude, latitude){
         var foundRoom = false;
-        for(room in currentRooms.rooms){
+        console.log(this.rooms);
+        for(room in this.rooms){
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 0.1){
