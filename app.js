@@ -153,7 +153,7 @@ io.on('connection', function(socket){
     socket.on('gameStartRequest', function(data){
         console.log("host id = " + data.clientId);
         console.log("current rooms:" + currentRooms.rooms)
-        var room = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId});
+        var room = _.find(currentRooms.rooms, function(room){return room.hostId === data.clientId});
         console.log(room);
         var players = room.players
         if(players.length > 1){
@@ -168,7 +168,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('gameResetRequest', function(){
-        var players = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId}).players
+        var players = _.find(currentRooms.rooms, function(room){return room.hostId === data.clientId}).players
         for(player in players){
             player.gameStatus = "standby";
             io.sockets.connected[player.socketid].emit('gameReset');
