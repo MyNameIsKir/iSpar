@@ -21,7 +21,7 @@ var currentRooms = {
         this.rooms.forEach(function(room){
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
-            if(distance < 100000){
+            if(distance < 500000){
                 console.log("found it!")
                 found = room;
             }
@@ -193,7 +193,7 @@ io.on('connection', function(socket){
             connectedPlayers.players.push(player);
             socket.emit('playerAdded', {playerid: room.playerCount});
             io.sockets.connected[room.hostId].emit('playerJoined', {playerid: room.playerCount});
-    f    } else {
+        } else {
             socket.emit('roomDoesNotExist');
         }
     });
