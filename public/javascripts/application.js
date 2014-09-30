@@ -55,7 +55,7 @@ window.onload = function(){
   });
 
   //mutual sockets
-  socket.on('gamestart', function(){
+  socket.on('gameStart', function(){
     console.log("starting the game")
     $("#gamestart").hide();
     if(isPlayer){
