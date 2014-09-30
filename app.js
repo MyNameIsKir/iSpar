@@ -132,8 +132,7 @@ io.on('connection', function(socket){
     //Host
     socket.on('hostConnectRequest', function(data){
         console.log("A host request has been made.");
-        var ipaddress = socket.handshake.address;
-        console.log(ipaddress);
+        console.log("player longitude: " + longitude + " latitude: " + latitude);
         if(currentRooms[ipaddress] && currentRooms[ipaddress].hostId){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
@@ -172,6 +171,7 @@ io.on('connection', function(socket){
         console.log("A player request has been made.");
         var longitude = data.longitude;
         var latitude = data.latitude;
+        console.log("player longitude: " + longitude + " latitude: " + latitude);
         console.log(currentRooms);
         var room = currentRooms.findRoomByLocation(longitude, latitude);
         if(room){
