@@ -112,6 +112,7 @@ function greatCircleDistance(lat1, lon1, lat2, lon2){
         return this * Math.PI / 180;
       }
     }
+    console.log(lat1, lon1, lat2, lon2)
     var R = 6371; // km
     var dLat = (lat2-lat1).toRad();
     var dLon = (lon2-lon1).toRad();
