@@ -18,7 +18,9 @@ var currentRooms = {
     rooms: [],
     findRoomByLocation: function(longitude, latitude){
         for(room in this.rooms){
-            if(greatCircleDistance(longitude, latitude, room.longitude, room.latitude) < 0.1){
+            var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
+            console.log("room distance is " + distance);
+            if(distance < 0.1){
                 return room;
             }
         };
@@ -175,7 +177,7 @@ io.on('connection', function(socket){
         console.log("player longitude: " + longitude + " latitude: " + latitude);
         console.log(currentRooms);
         var room = currentRooms.findRoomByLocation(longitude, latitude);
-        if(room){
+        if(room != undefined){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId, room));
             socket.emit('playerAdded', {playerid: room.playerCount + 1});
