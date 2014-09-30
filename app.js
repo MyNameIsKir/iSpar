@@ -48,6 +48,7 @@ var app = express();
 
 var http = require('http').createServer(app);
 var io = require('socket.io').listen(http);
+var _ = require('underscore');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
