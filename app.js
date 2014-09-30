@@ -176,6 +176,8 @@ io.on('connection', function(socket){
         var latitude = data.latitude;
         console.log("player longitude: " + longitude + " latitude: " + latitude);
         var room = currentRooms.findRoomByLocation(longitude, latitude);
+        console.log(room);
+        debugger
         if(room != undefined){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId, room));
