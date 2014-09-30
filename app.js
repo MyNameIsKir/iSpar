@@ -103,14 +103,13 @@ module.exports = app;
 
 http.listen(process.env.PORT || 3000, function(){
     console.log("Listening...")
+    //Great Circle Distance
+    if (typeof(Number.prototype.toRad) === "undefined") {
+      Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+      }
+    }
 });
-
-//Great Circle Distance
-if (typeof(Number.prototype.toRad) === "undefined") {
-  Number.prototype.toRad = function() {
-    return this * Math.PI / 180;
-  }
-}
 
 function greatCircleDistance(lat1, lon1, lat2, lon2){
     var R = 6371; // km
