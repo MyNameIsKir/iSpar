@@ -171,6 +171,7 @@ io.on('connection', function(socket){
 
     socket.on('gameResetRequest', function(){
         var players = _.find(currentRooms.rooms, function(room){return room.hostId === data.clientId}).players
+        socket.emit('gameReset');
         players.forEach(function(player){
             player.gameStatus = "standby";
             io.sockets.connected[player.socketid].emit('gameReset');

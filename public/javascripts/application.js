@@ -61,7 +61,7 @@ window.onload = function(){
     if(isPlayer){
       var clientSessionId = socket.io.engine.id;
       $("body").css("background-color", "#00FF00");
-      window.removeEventListener('shake', listener, false);
+      // window.removeEventListener('shake', listener, false);
       window.addEventListener('shake', function(){
         socket.emit('eliminationReport', {clientId: clientSessionId});
         $("#playername").hide();
@@ -71,10 +71,15 @@ window.onload = function(){
     }
   });
 
-  socket.on('gamereset', function(){
+  socket.on('gameReset', function(){
     $("#gamereset").hide();
     $("#gamestart").show();
     //player code here
+    if(isPlayer){
+      $("body").css("background-color", "yellow");
+      $("#playername").show();
+      $("#eliminated").hide();
+    }
   });
 
   //host button sockets
@@ -130,9 +135,9 @@ window.onload = function(){
   var isPlayer = window.DeviceMotionEvent && isMobile;
   if (isPlayer) {
     // User device is a mobile device with the device motion event enabled
-    window.addEventListener('shake', function(){
-      shakeEventDidOccur();
-    });
+    // window.addEventListener('shake', function(){
+    //   shakeEventDidOccur();
+    // });
     $(".mobile-player").show();
   } else if (!isMobile) {
     // User device is a computer
