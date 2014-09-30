@@ -95,12 +95,14 @@ window.onload = function(){
   $("#gamestart").click(function(e){
     e.preventDefault();
     console.log("host start click")
+    var clientSessionId = socket.io.engine.id;
     socket.emit('gameStartRequest', {clientId: clientSessionId});
   });
 
   $("#gamereset").click(function(e){
     e.preventDefault();
     console.log("host reset click")
+    var clientSessionId = socket.io.engine.id;
     socket.emit('gameResetRequest', {clientId: clientSessionId});
   });
 
