@@ -138,8 +138,8 @@ io.on('connection', function(socket){
     socket.on('hostConnectRequest', function(data){
         console.log("A host request has been made.");
         console.log("host longitude: " + data.longitude + " latitude: " + data.latitude);
-        var ipaddress = socket.handshake.address;
-        if(currentRooms[ipaddress] && currentRooms[ipaddress].hostId){
+        var existing = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId})
+        if(existing){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
         } else {
@@ -149,9 +149,8 @@ io.on('connection', function(socket){
         }
     });
 
-    socket.on('gameStartRequest', function(){
-        var ipaddress = socket.handshake.address;
-        var players = currentRooms[ipaddress].players;
+    socket.on('gameStartRequest', function(data){
+        var players = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId}).players
         if(players.length > 1){
             socket.emit('gameStart');
             for(player in players){
@@ -164,8 +163,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('gameResetRequest', function(){
-        var ipaddress = socket.handshake.address;
-        var players = currentRooms[ipaddress].players;
+        var players = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId}).players
         for(player in players){
             player.gameStatus = "standby";
             io.sockets.connected[player.socketid].emit('gameReset');
@@ -183,8 +181,8 @@ io.on('connection', function(socket){
         if(room){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId, room));
-            socket.emit('playerAdded', {playerid: room.playerCount + 1});
-            io.sockets.connected[room.hostId].emit('playerJoined', {playerid: room.playerCount + 1});
+            socket.emit('playerAdded', {playerid: room.playerCount});
+            io.sockets.connected[room.hostId].emit('playerJoined', {playerid: room.playerCount});
         } else {
             socket.emit('roomDoesNotExist');
         }

@@ -95,13 +95,13 @@ window.onload = function(){
   $("#gamestart").click(function(e){
     e.preventDefault();
     console.log("host start click")
-    socket.emit('gameStartRequest');
+    socket.emit('gameStartRequest', {clientId: clientSessionId});
   });
 
   $("#gamereset").click(function(e){
     e.preventDefault();
     console.log("host reset click")
-    socket.emit('gameResetRequest');
+    socket.emit('gameResetRequest', {clientId: clientSessionId});
   });
 
   //player button sockets
@@ -143,9 +143,10 @@ window.onload = function(){
   // title screen shake function
   function shakeEventDidOccur() {
     console.log("Device shake registered")
+    var starting =  $("body").css("background-color");
     $("body").css("background-color", "red");
     setTimeout(function(){
-      $("body").css("background-color", "black");
+      $("body").css("background-color", starting);
     }, 1000);
   };
 
