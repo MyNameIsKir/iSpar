@@ -25,7 +25,7 @@ var currentRooms = {
             console.log(longitude, latitude, room.longitude, room.latitude)
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
-            if(distance < 0.1){
+            if(distance < 100000){
                 foundRoom = room;
                 room.playerCount++;
                 room.players.push(new Player(room.playerCount, data.clientId, room));
