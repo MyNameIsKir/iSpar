@@ -157,6 +157,7 @@ io.on('connection', function(socket){
         console.log(room);
         var players = room.players
         if(players.length > 1){
+            console.log("starting the game")
             socket.emit('gameStart');
             players.forEach(function(player){
                 player.gameStatus = "active";
