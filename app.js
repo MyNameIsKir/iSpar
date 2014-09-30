@@ -207,5 +207,11 @@ io.on('connection', function(socket){
         console.log(reportingPlayer);
         console.log(reportingPlayer.room);
         io.sockets.connected[reportingPlayer.room.hostId].emit('playerEliminated', {playerid: reportingPlayer.id});
+        var remaining = _.find(reportingPlayer.room.players, function(player){
+            return player.gameStatus === "active";
+        });
+        if(remaining.length <= 1){
+            io.sockets.connected[reportingPlayer.room.hostId].emit('gameOver', {winner: remaining[0].id});
+        };
     });
 });

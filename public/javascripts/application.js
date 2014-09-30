@@ -31,7 +31,7 @@ window.onload = function(){
   });
 
   socket.on('playerJoined', function(data){
-    $("#players").append("<tr><td></td><td>Player " + data.playerid + "</td><td id='player" + data.playerid + "status'>Standby</td></tr>");
+    $("#players").append("<tr><td></td><td>Player " + data.playerid + "</td><td id='player" + data.playerid + "status' class='playerstatus'>Standby</td></tr>");
   });
 
   socket.on('playerEliminated', function(data){
@@ -58,7 +58,8 @@ window.onload = function(){
   socket.on('gameStart', function(){
     console.log("starting the game")
     $("#gamestart").hide();
-
+    $("#waitmessage").hide;
+    $(".playerstatus").html("active");
     if(isPlayer){
       var clientSessionId = socket.io.engine.id;
       $("body").css("background-color", "#00FF00");
@@ -72,8 +73,15 @@ window.onload = function(){
     }
   });
 
+  socket.on('gameOver', function(data){
+    $("#gamereset").show();
+    $("#winnermessage").html("Player " + data.winner + " wins!");
+    $("#winnermessage").show();
+  })
+
   socket.on('gameReset', function(){
     $("#gamereset").hide();
+    $("#winnermessage").hide();
     $("#gamestart").show();
     //player code here
     if(isPlayer){
