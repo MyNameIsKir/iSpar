@@ -74,6 +74,7 @@ window.onload = function(){
   });
 
   socket.on('gameOver', function(data){
+    console.log("game over");
     $("#gamereset").show();
     $("#winnermessage").html("Player " + data.winner + " wins!");
     $("#winnermessage").show();
