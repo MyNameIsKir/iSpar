@@ -2,18 +2,32 @@
 function Player(id, socketid) {
     this.id = id;
     this.socketid = socketid;
+    this.room;
     this.gameStatus = "standby";
 };
 
-function Room(hostSocketId) {
+function Room(hostSocketId, latitude, longitude) {
     this.hostId = hostSocketId;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.players = []; //populate with Player objects
     this.playerCount = 0;
 }
 
 var currentRooms = {
-    //populate with Room objects
+    rooms: [],
+    findRoomByLocation: function(longitude, latitude){
+        for(room in this.rooms){
+            if(greatCircleDistance(longitude, latitude, room.longitude, room.latitude) < 0.1){
+                return room;
+            }
+        };
+    }
 };
+
+var connectedPlayers = {
+    players: []
+}
 
 var express = require('express');
 var path = require('path');
@@ -82,6 +96,26 @@ http.listen(process.env.PORT || 3000, function(){
     console.log("Listening...")
 });
 
+//Great Circle Distance
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+}
+
+function greatCircleDistance(lat1, lon1, lat2, lon2){
+    var R = 6371; // km
+    var dLat = (lat2-lat1).toRad();
+    var dLon = (lon2-lon1).toRad();
+    var lat1 = lat1.toRad();
+    var lat2 = lat2.toRad();
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d;
+}
 
 //Socket.io
 io.on('connection', function(socket){
@@ -116,6 +150,7 @@ io.on('connection', function(socket){
         if(players.length > 1){
             socket.emit('gameStart');
             for(player in players){
+                player.gameStatus = "active";
                 io.sockets.socket(player.socketid).emit('gameStart');
             }
         } else {
@@ -124,22 +159,36 @@ io.on('connection', function(socket){
     });
 
     socket.on('gameResetRequest', function(){
-        //todo
+        var ipaddress = socket.handshake.address;
+        var players = currentRooms[ipaddress].players;
+        for(player in players){
+            player.gameStatus = "standby";
+            io.sockets.socket(player.socketid).emit('gameReset');
+        }
     });
 
     //Player
     socket.on('playerConnectRequest', function(data){
         console.log("A player request has been made.");
-        var ipaddress = socket.handshake.address;
-        console.log(ipaddress);
+        var longitude = data.longitude;
+        var latitude = data.latitude;
         console.log(currentRooms);
-        var room = currentRooms[ipaddress];
+        var room = currentRooms.findRoomByLocation(longitude, latitude);
         if(room){
             room.playerCount++;
-            room.players.push(new Player(room.playerCount, data.clientId));
+            room.players.push(new Player(room.playerCount, data.clientId, room));
             socket.emit('playerAdded', {playerid: room.playerCount + 1});
+            io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
         } else {
             socket.emit('roomDoesNotExist');
         }
+    });
+
+    socket.on('eliminationReport', function(data){
+        var reportingPlayer = _.find(connectedPlayers.players, function(player){
+            return player.socketid === socket;
+        })
+        reportingPlayer.gameStatus = "eliminated";
+        io.sockets.socket(reportingPlayer.room.hostId).emit('playerEliminated', {playerid: reportingPlayer.id});
     });
 });

@@ -13,6 +13,10 @@ block content
     .alert.alert-warning.page-alert#roomdoesnotexist
       strong Hey!
         | You need a host to start a room before you can play. Are you connected to wifi?
+  .page-alerts
+    .alert.alert-warning.page-alert#nolocation
+      strong
+        | Please wait while we find your location...
   .site-wrapper#index
     .site-wrapper-inner
       .cover-container
@@ -24,7 +28,7 @@ block content
               li
                 a(href="#") About
               li
-                a(href="#") Github
+                a(href="https://github.com/MyNameIsKir/iSpar") Github
           .inner.cover
             h1.cover-heading.big-cover-heading iSpar
             p.lead
@@ -53,7 +57,9 @@ block content
           button.btn.btn-lg.btn-default#gamereset Reset
 
   .site-wrapper#playerinterface
-    .inner.cover
+    #eliminated
+      hi#eliminatedx X
+    .inner.cover#playername
       h1.cover-heading.big-cover-heading#playerid Player
 
 
@@ -68,6 +74,6 @@ block content
             span.sr-only Close
           h4#howToPlayLabel.modal-title How To Play
         .modal-body
-          | ...
+          | Coming Soon!
         .modal-footer
           button.btn.btn-primary(type='button', data-dismiss='modal') Close

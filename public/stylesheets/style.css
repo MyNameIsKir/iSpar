@@ -18,7 +18,7 @@ table {
   font-size: 80px;
 }
 
-.mobile-player, .computer-host, .alert-warning, #playerlist, #gamereset, #playerinterface {
+.mobile-player, .computer-host, .alert-warning, #playerlist, #gamereset, #playerinterface, #eliminated {
   display: none;
 }
 
@@ -43,4 +43,9 @@ table {
 
 #gamecontrols {
   padding: 50px;
+}
+
+#eliminatedx {
+  font-size: 450px;
+  margin: 0;
 }
