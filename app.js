@@ -212,7 +212,7 @@ io.on('connection', function(socket){
         var remaining = _.find(reportingPlayer.room.players, function(player){
             return player.gameStatus === "active";
         });
-        console.log("remaining players: " + remaining);
+        console.log("remaining players: " + JSON.stringify(remaining, null, 4));
         console.log(remaining.length)
         if(remaining.length <= 1){
             io.sockets.connected[reportingPlayer.room.hostId].emit('gameOver', {winner: remaining[0].id});
