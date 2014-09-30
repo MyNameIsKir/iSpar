@@ -20,6 +20,8 @@ var currentRooms = {
         var foundRoom = false;
         console.log(this.rooms);
         for(room in this.rooms){
+            console.log(room)
+            console.log(longitude, latitude, room.longitude, room.latitude)
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 0.1){
@@ -105,14 +107,14 @@ http.listen(process.env.PORT || 3000, function(){
     console.log("Listening...")
 });
 
+//Great Circle Distance
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+}
+
 function greatCircleDistance(lat1, lon1, lat2, lon2){
-    //toRad
-    if (typeof(Number.prototype.toRad) === "undefined") {
-      Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-      }
-    }
-    console.log(lat1, lon1, lat2, lon2)
     var R = 6371; // km
     var dLat = (lat2-lat1).toRad();
     var dLon = (lon2-lon1).toRad();
