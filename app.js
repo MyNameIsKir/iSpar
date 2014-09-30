@@ -190,7 +190,7 @@ io.on('connection', function(socket){
             room.playerCount++;
             var player = new Player(room.playerCount, data.clientId, room);
             room.players.push(player);
-            connectedPlayers.push(player);
+            connectedPlayers.players.push(player);
             socket.emit('playerAdded', {playerid: room.playerCount});
             io.sockets.connected[room.hostId].emit('playerJoined', {playerid: room.playerCount});
         } else {
