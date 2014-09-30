@@ -16,7 +16,7 @@ function Room(hostSocketId, latitude, longitude) {
 
 var currentRooms = {
     rooms: [],
-    findRoomByLocation: function(socket, longitude, latitude){
+    findRoomByLocation: function(socket, clientId, longitude, latitude){
         var foundRoom = false;
         console.log(this.rooms);
         for(index in this.rooms){
@@ -28,7 +28,7 @@ var currentRooms = {
             if(distance < 100000){
                 foundRoom = room;
                 room.playerCount++;
-                room.players.push(new Player(room.playerCount, data.clientId, room));
+                room.players.push(new Player(room.playerCount, clientId, room));
                 socket.emit('playerAdded', {playerid: room.playerCount + 1});
                 io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
             }
@@ -185,7 +185,7 @@ io.on('connection', function(socket){
         var longitude = data.longitude;
         var latitude = data.latitude;
         console.log("player longitude: " + longitude + " latitude: " + latitude);
-        var room = currentRooms.findRoomByLocation(socket, longitude, latitude);
+        var room = currentRooms.findRoomByLocation(socket, data.clientId, longitude, latitude);
     });
 
     socket.on('eliminationReport', function(data){
