@@ -209,10 +209,10 @@ io.on('connection', function(socket){
         console.log(reportingPlayer);
         console.log(reportingPlayer.room);
         io.sockets.connected[reportingPlayer.room.hostId].emit('playerEliminated', {playerid: reportingPlayer.id});
-        var remaining = _.find(reportingPlayer.room.players, function(player){
+        var remaining = _.filter(reportingPlayer.room.players, function(player){
             return player.gameStatus === "active";
         });
-        console.log("remaining players: " + JSON.stringify(remaining, null, 4));
+        console.log("remaining players: " + remaining);
         console.log(remaining.length)
         if(remaining.length <= 1){
             io.sockets.connected[reportingPlayer.room.hostId].emit('gameOver', {winner: remaining[0].id});
