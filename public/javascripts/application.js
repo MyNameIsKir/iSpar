@@ -59,7 +59,7 @@ window.onload = function(){
     console.log("starting the game")
     $("#gamestart").hide();
     $("#waitmessage").hide;
-    $(".playerstatus").html("active");
+    $(".playerstatus").html("Active");
     if(isPlayer){
       var clientSessionId = socket.io.engine.id;
       $("body").css("background-color", "#00FF00");

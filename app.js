@@ -193,7 +193,7 @@ io.on('connection', function(socket){
             connectedPlayers.players.push(player);
             socket.emit('playerAdded', {playerid: room.playerCount});
             io.sockets.connected[room.hostId].emit('playerJoined', {playerid: room.playerCount});
-        } else {
+    f    } else {
             socket.emit('roomDoesNotExist');
         }
     });
@@ -210,6 +210,7 @@ io.on('connection', function(socket){
         var remaining = _.find(reportingPlayer.room.players, function(player){
             return player.gameStatus === "active";
         });
+        console.log("remaining players: " + remaining);
         if(remaining.length <= 1){
             io.sockets.connected[reportingPlayer.room.hostId].emit('gameOver', {winner: remaining[0].id});
         };
