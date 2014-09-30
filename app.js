@@ -152,6 +152,7 @@ io.on('connection', function(socket){
 
     socket.on('gameStartRequest', function(data){
         console.log("host id = " + data.clientId);
+        console.log("current rooms:" + currentRooms)
         var room = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId});
         console.log(room);
         var players = room.players
