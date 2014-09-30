@@ -16,24 +16,14 @@ function Room(hostSocketId, latitude, longitude) {
 
 var currentRooms = {
     rooms: [],
-    findRoomByLocation: function(socket, clientId, longitude, latitude){
-        var foundRoom = false;
-        console.log(this.rooms);
-        for(index in this.rooms){
-            var room = this.rooms[index]; //I have no clue why I'm getting the index.
-            console.log(room)
-            console.log(longitude, latitude, room.longitude, room.latitude)
+    findRoomByLocation: function(longitude, latitude){
+        this.rooms.forEach(function(room){
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 100000){
-                foundRoom = room;
-                room.playerCount++;
-                room.players.push(new Player(room.playerCount, clientId, room));
-                socket.emit('playerAdded', {playerid: room.playerCount + 1});
-                io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
+                return room;
             }
-        };
-        if(!foundRoom){socket.emit('roomDoesNotExist');}
+        });
     }
 };
 
@@ -150,7 +140,7 @@ io.on('connection', function(socket){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
         } else {
-            currentRooms.rooms.push(new Room(data.clientId, data.longitude, data.latitude));
+            currentRooms[ipaddress] = new Room(data.clientId, data.longitude, data.latitude);
             socket.emit('hostAdded');
             console.log(currentRooms);
         }
@@ -185,7 +175,15 @@ io.on('connection', function(socket){
         var longitude = data.longitude;
         var latitude = data.latitude;
         console.log("player longitude: " + longitude + " latitude: " + latitude);
-        var room = currentRooms.findRoomByLocation(socket, data.clientId, longitude, latitude);
+        var room = currentRooms.findRoomByLocation(longitude, latitude);
+        if(room != undefined){
+            room.playerCount++;
+            room.players.push(new Player(room.playerCount, data.clientId, room));
+            socket.emit('playerAdded', {playerid: room.playerCount + 1});
+            io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
+        } else {
+            socket.emit('roomDoesNotExist');
+        }
     });
 
     socket.on('eliminationReport', function(data){
