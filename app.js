@@ -16,14 +16,20 @@ function Room(hostSocketId, latitude, longitude) {
 
 var currentRooms = {
     rooms: [],
-    findRoomByLocation: function(longitude, latitude){
+    findRoomByLocation: function(socket, longitude, latitude){
+        var foundRoom = false;
         for(room in currentRooms.rooms){
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 0.1){
-                return room;
+                foundRoom = room;
+                room.playerCount++;
+                room.players.push(new Player(room.playerCount, data.clientId, room));
+                socket.emit('playerAdded', {playerid: room.playerCount + 1});
+                io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
             }
         };
+        if(!foundRoom){socket.emit('roomDoesNotExist');}
     }
 };
 
@@ -175,17 +181,7 @@ io.on('connection', function(socket){
         var longitude = data.longitude;
         var latitude = data.latitude;
         console.log("player longitude: " + longitude + " latitude: " + latitude);
-        var room = currentRooms.findRoomByLocation(longitude, latitude);
-        console.log(room);
-        debugger
-        if(room != undefined){
-            room.playerCount++;
-            room.players.push(new Player(room.playerCount, data.clientId, room));
-            socket.emit('playerAdded', {playerid: room.playerCount + 1});
-            io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
-        } else {
-            socket.emit('roomDoesNotExist');
-        }
+        var room = currentRooms.findRoomByLocation(socket, longitude, latitude);
     });
 
     socket.on('eliminationReport', function(data){
