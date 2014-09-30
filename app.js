@@ -198,7 +198,7 @@ io.on('connection', function(socket){
 
     socket.on('eliminationReport', function(data){
         var reportingPlayer = _.find(connectedPlayers.players, function(player){
-            return player.socketid === socket;
+            return player.socketid === data.clientId;
         })
         reportingPlayer.gameStatus = "eliminated";
         io.sockets.connected[reportingPlayer.room.hostId].emit('playerEliminated', {playerid: reportingPlayer.id});
