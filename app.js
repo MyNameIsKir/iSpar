@@ -133,6 +133,7 @@ io.on('connection', function(socket){
     socket.on('hostConnectRequest', function(data){
         console.log("A host request has been made.");
         console.log("host longitude: " + data.longitude + " latitude: " + data.latitude);
+        var ipaddress = socket.handshake.address;
         if(currentRooms[ipaddress] && currentRooms[ipaddress].hostId){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
