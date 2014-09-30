@@ -58,6 +58,7 @@ window.onload = function(){
   socket.on('gameStart', function(){
     console.log("starting the game")
     $("#gamestart").hide();
+
     if(isPlayer){
       var clientSessionId = socket.io.engine.id;
       $("body").css("background-color", "#00FF00");
