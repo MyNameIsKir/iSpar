@@ -56,6 +56,7 @@ window.onload = function(){
 
   //mutual sockets
   socket.on('gamestart', function(){
+    console.log("starting the game")
     $("#gamestart").hide();
     if(isPlayer){
       var clientSessionId = socket.io.engine.id;
