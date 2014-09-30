@@ -19,7 +19,8 @@ var currentRooms = {
     findRoomByLocation: function(socket, longitude, latitude){
         var foundRoom = false;
         console.log(this.rooms);
-        for(room in this.rooms){
+        for(index in this.rooms){
+            var room = this.rooms[index]; //I have no clue why I'm getting the index.
             console.log(room)
             console.log(longitude, latitude, room.longitude, room.latitude)
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
