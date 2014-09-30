@@ -139,7 +139,7 @@ io.on('connection', function(socket){
     socket.on('hostConnectRequest', function(data){
         console.log("A host request has been made.");
         console.log("host longitude: " + data.longitude + " latitude: " + data.latitude);
-        var existing = _.find(currentRooms.rooms, function(room){room.hostId === data.clientId})
+        var existing = currentRooms.findRoomByLocation(data.longitude, data.latitude);
         if(existing){
             socket.emit('hostAlreadyExists');
             console.log(currentRooms);
@@ -158,10 +158,10 @@ io.on('connection', function(socket){
         var players = room.players
         if(players.length > 1){
             socket.emit('gameStart');
-            for(player in players){
+            players.forEach(function(player){
                 player.gameStatus = "active";
                 io.sockets.connected[player.socketid].emit('gameStart');
-            }
+            });
         } else {
             socket.emit('insufficientPlayers');
         }
@@ -169,10 +169,10 @@ io.on('connection', function(socket){
 
     socket.on('gameResetRequest', function(){
         var players = _.find(currentRooms.rooms, function(room){return room.hostId === data.clientId}).players
-        for(player in players){
+        players.forEach(function(player){
             player.gameStatus = "standby";
             io.sockets.connected[player.socketid].emit('gameReset');
-        }
+        });
     });
 
     //Player
