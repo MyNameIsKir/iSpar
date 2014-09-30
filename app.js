@@ -1,8 +1,8 @@
 //User Management
-function Player(id, socketid) {
+function Player(id, socketid, room) {
     this.id = id;
     this.socketid = socketid;
-    this.room;
+    this.room = room;
     this.gameStatus = "standby";
 };
 
