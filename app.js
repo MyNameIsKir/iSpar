@@ -24,6 +24,7 @@ var currentRooms = {
                 return room;
             }
         });
+        return false;
     }
 };
 
@@ -177,7 +178,8 @@ io.on('connection', function(socket){
         console.log("player longitude: " + longitude + " latitude: " + latitude);
         var room = currentRooms.findRoomByLocation(longitude, latitude);
         console.log(room);
-        if(room != undefined){
+        while(room === undefined){console.log("waiting for room.")}
+        if(room){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId, room));
             socket.emit('playerAdded', {playerid: room.playerCount + 1});
