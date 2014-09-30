@@ -159,6 +159,7 @@ io.on('connection', function(socket){
         if(players.length > 1){
             console.log("starting the game")
             socket.emit('gameStart');
+            console.log(players)
             players.forEach(function(player){
                 player.gameStatus = "active";
                 io.sockets.connected[player.socketid].emit('gameStart');
