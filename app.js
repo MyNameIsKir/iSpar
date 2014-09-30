@@ -17,16 +17,16 @@ function Room(hostSocketId, latitude, longitude) {
 var currentRooms = {
     rooms: [],
     findRoomByLocation: function(longitude, latitude){
+        var found = false;
         this.rooms.forEach(function(room){
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 100000){
                 console.log("found it!")
-                return room;
+                found = room;
             }
         });
-        console.log("the distance is too great, or room was not found.")
-        return false;
+        return found;
     }
 };
 
