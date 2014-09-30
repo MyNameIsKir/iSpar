@@ -163,6 +163,7 @@ io.on('connection', function(socket){
             players.forEach(function(player){
                 player.gameStatus = "active";
                 io.sockets.connected[player.socketid].emit('gameStart');
+                console.log(player);
             });
         } else {
             socket.emit('insufficientPlayers');
@@ -202,6 +203,7 @@ io.on('connection', function(socket){
         var reportingPlayer = _.find(connectedPlayers.players, function(player){
             return player.socketid === data.clientId;
         })
+        console.log("A player has been eliminated.")
         console.log(reportingPlayer);
         reportingPlayer.gameStatus = "eliminated";
         console.log(reportingPlayer);
