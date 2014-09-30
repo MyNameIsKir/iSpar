@@ -17,7 +17,7 @@ function Room(hostSocketId, latitude, longitude) {
 var currentRooms = {
     rooms: [],
     findRoomByLocation: function(longitude, latitude){
-        for(room in this.rooms){
+        for(room in currentRooms.rooms){
             var distance = greatCircleDistance(longitude, latitude, room.longitude, room.latitude);
             console.log("room distance is " + distance);
             if(distance < 0.1){
@@ -175,7 +175,6 @@ io.on('connection', function(socket){
         var longitude = data.longitude;
         var latitude = data.latitude;
         console.log("player longitude: " + longitude + " latitude: " + latitude);
-        console.log(currentRooms);
         var room = currentRooms.findRoomByLocation(longitude, latitude);
         if(room != undefined){
             room.playerCount++;
