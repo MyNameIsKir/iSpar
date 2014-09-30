@@ -156,7 +156,7 @@ io.on('connection', function(socket){
             socket.emit('gameStart');
             for(player in players){
                 player.gameStatus = "active";
-                io.sockets.socket(player.socketid).emit('gameStart');
+                io.sockets.connected[player.socketid].emit('gameStart');
             }
         } else {
             socket.emit('insufficientPlayers');
@@ -168,7 +168,7 @@ io.on('connection', function(socket){
         var players = currentRooms[ipaddress].players;
         for(player in players){
             player.gameStatus = "standby";
-            io.sockets.socket(player.socketid).emit('gameReset');
+            io.sockets.connected[player.socketid].emit('gameReset');
         }
     });
 
@@ -184,7 +184,7 @@ io.on('connection', function(socket){
             room.playerCount++;
             room.players.push(new Player(room.playerCount, data.clientId, room));
             socket.emit('playerAdded', {playerid: room.playerCount + 1});
-            io.sockets.socket(room.hostId).emit('playerJoined', {playerid: room.playerCount + 1});
+            io.sockets.connected[room.hostId].emit('playerJoined', {playerid: room.playerCount + 1});
         } else {
             socket.emit('roomDoesNotExist');
         }
